@@ -14,7 +14,7 @@
                     <select class="form-select form-select-sm" aria-label="Small select example"
                     formControlName="assignedToUser"
                     >
-                        <option *ngFor="let user of userList" [value]="user.value">{{user.name}}</option>
+                        <option *ngFor="let user of userList" [value]="user.name">{{user.name}}</option>
                     </select>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                     <select class="form-select form-select-sm" aria-label="Small select example" 
                     formControlName="status"
                     >
-                        <option *ngFor="let status of statusList" [value]="status.value">{{status.name}}</option>
+                        <option *ngFor="let status of statusList" [value]="status.name">{{status.name}}</option>
                     </select>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                 <select class="form-select form-select-sm" aria-label="Small select example"
                 formControlName="priority"
                 >
-                    <option *ngFor="let priority of priorityList" [value]="priority.value">{{priority?.name}}</option>
+                    <option *ngFor="let priority of priorityList" [value]="priority?.name">{{priority?.name}}</option>
                 </select>
             </div>
         </div>

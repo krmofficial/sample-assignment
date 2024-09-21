@@ -6,9 +6,9 @@ export class TasksConstants {
     ];
 
     public static priority = [
-        {id: 1, name: "Low", value: "low"},
-        {id: 2, name: "High", value: "high"},
-        {id: 3, name: "Normal", value: "normal"},
+        {id: 1, name: "Low", value: "Low"},
+        {id: 2, name: "High", value: "High"},
+        {id: 3, name: "Normal", value: "Normal"},
     ];
 
     public static users = [

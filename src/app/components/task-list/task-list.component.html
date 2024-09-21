@@ -1,10 +1,8 @@
 <div>
     <div class="d-flex justify-content-between mt-2">
         <div class="d-flex align-items-center">
-            <div class="logo">
-                <svg class="slds-icon slds-icon_small slds-icon-text-default">
-                    <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg"></use>
-                </svg>
+            <div class="p-2">
+                <i class="fas fa-tasks fa-2x text-primary m-2"></i>
             </div>
             <div>
                 <div>Tasks</div>
@@ -14,9 +12,7 @@
         <div class="me-1">
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary btn-sm mx-2" data-bs-toggle="modal"
-                data-bs-target="#taskFormModal"
-                (click)="addTask()"
-                >
+                data-bs-target="#taskFormModal" (click)="addTask()">
                 New Task
             </button>
             <button class="btn btn-primary btn-sm">
@@ -27,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="ms-2">4 Records</div>
+    <div class="ms-2">{{taskList.length}} Records</div>
     <div class="m-2">
         <table class="table table-light">
             <thead>
@@ -47,33 +43,36 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let task of taskList">
-                    <td>
-                        <div class="text-center">
-                            <input class="form-check-input" type="checkbox" value=""
-                                aria-label="Checkbox for following text input">
-                        </div>
-                    </td>
-                    <td>{{task.assignedToUser}}</td>
-                    <td>{{task.status}}</td>
-                    <td>{{task.dueDate}}</td>
-                    <td>{{task.priority}}</td>
-                    <td>{{task.comment}}</td>
-                    <td>
-                        <button type="button" class="btn btn-sm btn-primary mx-1" data-bs-toggle="modal"
-                            data-bs-target="#taskFormModal"
-                            (click)="editTask(task.id)"
-                            >
-                            Edit
-                        </button>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#deleteModal"
-                            (click)="setIdOfTaskToDelete(task.id)"
-                            >
-                            Delete
-                        </button>
-                    </td>
-                </tr>
+                <ng-container *ngIf="taskList?.length; else zeroScreen">
+                    <tr *ngFor="let task of taskList">
+                        <td>
+                            <div class="text-center">
+                                <input class="form-check-input" type="checkbox" value=""
+                                    aria-label="Checkbox for following text input">
+                            </div>
+                        </td>
+                        <td>{{task.assignedToUser}}</td>
+                        <td>{{task.status}}</td>
+                        <td>{{task.dueDate}}</td>
+                        <td>{{task.priority}}</td>
+                        <td>{{task.comment}}</td>
+                        <td>
+                            <button type="button" class="btn btn-sm btn-primary mx-1" data-bs-toggle="modal"
+                                data-bs-target="#taskFormModal" (click)="editTask(task.id)">
+                                Edit
+                            </button>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal" (click)="setIdOfTaskToDelete(task.id)">
+                                Delete
+                            </button>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-template #zeroScreen>
+                    <tr>
+                        <td class="text-center text-secondary" colspan="6">There are not tasks to display</td>
+                    </tr>
+                </ng-template>
             </tbody>
         </table>
     </div>
@@ -82,29 +81,30 @@
     <div class="modal fade" id="taskFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <app-manage-tasks [isEditTask]="isEditTask"
-                [selectedTaskId]="selectedTaskId"
-                (emitSaveTask)="onSave()"></app-manage-tasks>
+                <app-manage-tasks [isEditTask]="isEditTask" [selectedTaskId]="selectedTaskId"
+                [editTaskBtnClicked]="editTaskBtnClicked"
+                    (emitSaveTask)="onSave()"></app-manage-tasks>
             </div>
         </div>
     </div>
-  
-  <!-- Delete Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-danger b justify-content-center">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger b justify-content-center">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+                </div>
+                <div class="modal-body">
+                    Do you want to delete task.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    <button type="button" class="btn btn-primary" (click)="deleteTask()"
+                        data-bs-dismiss="modal">Yes</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          Do you want to delete task.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-primary" (click)="deleteTask()" data-bs-dismiss="modal" >Yes</button>
-        </div>
-      </div>
     </div>
-  </div>
 
 </div>

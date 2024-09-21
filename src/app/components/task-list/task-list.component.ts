@@ -18,8 +18,9 @@ export class TaskListComponent implements OnInit {
   isEditTask = false;
   selectedTaskId: number;
   deleteTaskId: number;
+  editTaskBtnClicked:number;
 
-  constructor(private taskService: TaskService){}
+  constructor(private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.getTaskList();
@@ -31,6 +32,7 @@ export class TaskListComponent implements OnInit {
 
   addTask(): void {
     this.isEditTask = false;
+    this.editTaskBtnClicked = Math.random() * this.taskList?.length;
   }
 
   editTask(id: number): void {
@@ -47,7 +49,12 @@ export class TaskListComponent implements OnInit {
   }
 
   deleteTask(): void {
-    this.taskList = this.taskList?.filter((item) => item?.id !== this.deleteTaskId);
-    this.taskService.saveTasksToLocalStorage(null, this.taskList)
+    if (this.taskList?.length === 1) {
+      localStorage.clear();
+      this.taskList = [];
+    } else {
+      this.taskList = this.taskList?.filter((item) => item?.id !== this.deleteTaskId);
+      this.taskService.saveTasksToLocalStorage(null, this.taskList);
+    }
   }
 }

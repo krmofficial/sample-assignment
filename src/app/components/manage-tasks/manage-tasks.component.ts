@@ -17,6 +17,7 @@ import { ManageTask } from '../../shared/common/tasks.model';
 export class ManageTasksComponent implements OnInit, OnChanges {
   @Input() isEditTask = false;
   @Input() selectedTaskId: number;
+  @Input() editTaskBtnClicked: number;
   @Output() emitSaveTask = new EventEmitter();
 
   taskForm: FormGroup;
@@ -34,6 +35,7 @@ export class ManageTasksComponent implements OnInit, OnChanges {
       this.selectedTask = task;
       this.patchDataToForm(task)
     }
+    console.log("zzz this. isEdit task", this.isEditTask);
     if(!this.isEditTask){
       this.taskForm?.reset();
     }

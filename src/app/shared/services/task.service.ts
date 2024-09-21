@@ -19,6 +19,6 @@ export class TaskService {
 
     getTaskList(): ManageTask[] {
         const localStorageData = localStorage.getItem(TasksConstants.taskList);
-        return localStorageData === null ? [] : JSON.parse(localStorageData);
+        return localStorageData === null || localStorageData === undefined ? [] : JSON.parse(localStorageData);
     }
 }

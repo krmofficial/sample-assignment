@@ -1,0 +1,74 @@
+<form [formGroup]="taskForm" >
+    <div class="modal-header justify-content-center">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" *ngIf="isEditTask"  >Edit Task</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel" *ngIf="!isEditTask" >New Task</h1>
+        
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col">
+                <label class="form-label">
+                    <span class="required-asterisk">*</span>
+                    Assigned To</label>
+                <div class="form-group">
+                    <select class="form-select form-select-sm" aria-label="Small select example"
+                    formControlName="assignedToUser"
+                    >
+                        <option *ngFor="let user of userList" [value]="user.value">{{user.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <label class="form-label">
+                    <span class="required-asterisk">*</span>
+                    Status</label>
+                <div class="form-group">
+                    <select class="form-select form-select-sm" aria-label="Small select example" 
+                    formControlName="status"
+                    >
+                        <option *ngFor="let status of statusList" [value]="status.value">{{status.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2">
+        <div class="col">
+            <label class="form-label">Due Date</label>
+            <div class="form-group">
+                <input type="date" class="form-control" 
+                formControlName="dueDate"
+                >
+            </div>
+        </div>
+        <div class="col">
+            <label class="form-label">
+                <span class="required-asterisk">*</span>
+                Priority</label>
+            <div class="form-group">
+                <select class="form-select form-select-sm" aria-label="Small select example"
+                formControlName="priority"
+                >
+                    <option *ngFor="let priority of priorityList" [value]="priority.value">{{priority?.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col">
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                formControlName="comment"
+                ></textarea>
+              </div>
+        </div>
+    </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+        [class.disable-btn]="taskForm.invalid"
+        (click)="saveTask()"
+        >Save</button>
+    </div>
+</form>
